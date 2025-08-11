@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<style>
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background: #fdfdfd;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #ff7e5f, #ff2f92);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+header h1 {
+    font-size: 1.5rem;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main section */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 50px;
+    flex-wrap: wrap;
+}
+
+/* Contact info box */
+.info-box {
+    background: #fff0eb;
+    border-radius: 10px;
+    padding: 25px;
+    width: 380px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-left: 6px solid #ff7e5f;
+    /* transform: translateX(-5px);  move slightly left */
+    margin-top: 90px;
+}
+.info-box h2 {
+    color: #ff7e5f;
+    margin-bottom: 12px;
+}
+.info-box p {
+    margin: 8px 0;
+    line-height: 1.5;
+    color: #444;
+}
+
+/* Form box */
+.form-box {
+    background: #fff7fb;
+    border-radius: 10px;
+    padding: 25px;
+    width: 550px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-top: 4px solid #ff2f92;
+}
+.form-box h2 {
+    color: #ff2f92;
+    margin-bottom: 12px;
+}
+.form-box label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+    color: #333;
+}
+.form-box input, 
+.form-box textarea {
+    width: 100%;
+    padding: 9px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    background: #fff;
+}
+.form-box textarea {
+    resize: none;
+    height: 80px;
+}
+
+/* Button */
+button {
+    margin-top: 18px;
+    width: 100%;
+    padding: 11px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ff7e5f, #ff2f92);
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 47, 146, 0.3);
+}
+button:hover {
+    opacity: 0.92;
+}
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+.popup-content {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 350px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .info-box, .form-box {
+        width: 100%;
+        max-width: 500px;
+        transform: none; /* remove left shift on mobile */
+        margin-top: 0;
+    }
+
+    header {
+        flex-direction: row;
+        text-align: center;
+        gap: 10px;
+    }
+
+    nav a {
+        margin-left: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>StyleSphere</h1>
+    <nav>
+        <a href="task2CF.html">Contact</a>
+        <a href="task2TD.html">To Do</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Contact Info -->
+    <div class="info-box">
+        <h2>Contact Information</h2>
+        <p><strong>Email:</strong> support@stylesphere.com</p>
+        <p><strong>Phone:</strong> XXXXX-XXXXX</p>
+        <p>We’d love to hear from you. Fill the form and we’ll get back soon!</p>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-box">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Your name">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Your email">
+
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Write your message..."></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+
+    </div>
+</main>
+<div class="popup" id="successPopup">
+    <div class="popup-content">
+        <h3>Form Submitted Successfully!</h3>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Get field values
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let message = document.getElementById("message").value.trim();
+
+    // Validation
+    if (name === "" || email === "" || message === "") {
+        alert("⚠ Please fill out all fields before submitting.");
+        return;
+    }
+
+    // Show popup
+    document.getElementById("successPopup").style.display = "flex";
+    this.reset();
+});
+
+function closePopup() {
+    document.getElementById("successPopup").style.display = "none";
+}
+</script>
+</body>
+</html>
