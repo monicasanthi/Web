@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Frontend Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background: linear-gradient(90deg, #ff7e5f, #ff2f92);
+      color: white;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    header h1, footer p {
+      margin: 0;
+    }
+
+    main {
+      padding: 1rem;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .carousel-container, .api-container {
+      flex: 1;
+      min-width: 300px;
+      margin: 1rem 0;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    /* Carousel styles */
+    .carousel {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .carousel img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #prev { left: 0; }
+    #next { right: 0; }
+
+    /* Weather input styles */
+    .api-container input {
+      padding: 10px;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 5px;
+    }
+
+    .api-container button {
+      padding: 10px 15px;
+      background: #ff7e5f;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .api-container button:hover {
+      background: #ff2f92;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1024px) {
+      main {
+        flex-direction: column;
+        align-items: center;
+      }
+      .carousel-container, .api-container {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body { font-size: 14px; }
+      .carousel-container, .api-container {
+        width: 100%;
+      }
+      .api-container input {
+        width: 95%;
+        margin-bottom: 10px;
+      }
+      .api-container button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>StyleSphere</h1>
+  </header>
+
+  <main>
+    <!-- Step 2: Image Carousel -->
+    <section class="carousel-container">
+      <h2>Image Carousel</h2>
+      <div class="carousel">
+        <button id="prev">❮</button>
+        <img id="carousel-image" src="https://picsum.photos/id/101/600/400" alt="Carousel Image">
+        <button id="next">❯</button>
+      </div>
+    </section>
+
+    <!-- Step 3: API Data -->
+    <section class="api-container">
+      <h2>Weather API</h2>
+      <input type="text" id="city" placeholder="Enter city name">
+      <button id="fetch-btn">Get Weather</button>
+      <div id="weather-output"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Project</p>
+  </footer>
+
+  <script>
+    // Step 2: Carousel
+    const images = [
+      "C:/Users/REVANTH SANTHIPRASAD/Downloads/cloudy.jpg",
+      "C:/Users/REVANTH SANTHIPRASAD/Downloads/rainy.jpg",
+      "C:/Users/REVANTH SANTHIPRASAD/Downloads/snowy.jpg",
+      "C:/Users/REVANTH SANTHIPRASAD/Downloads/sunny.jpg",
+      "C:/Users/REVANTH SANTHIPRASAD/Downloads/windy.jpg"
+    ];
+    let currentIndex = 0;
+
+    const carouselImage = document.getElementById("carousel-image");
+    document.getElementById("next").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+
+    // Step 3: Fetch API (OpenWeatherMap example)
+    const apiKey = "e2134c329ce1f8397f88c0504340aa7c"; // Replace with your API key
+
+    document.getElementById("fetch-btn").addEventListener("click", async () => {
+      const city = document.getElementById("city").value;
+      const output = document.getElementById("weather-output");
+      output.innerHTML = "Loading...";
+
+      try {
+        const res = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+        );
+        const data = await res.json();
+        if (data.cod !== 200) throw new Error(data.message);
+        output.innerHTML = `
+          <p><strong>${data.name}</strong></p>
+          <p>Temperature: ${data.main.temp}°C</p>
+          <p>Weather: ${data.weather[0].description}</p>
+        `;
+      } catch (err) {
+        output.innerHTML = `Error: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
