@@ -139,6 +139,8 @@ ul li button:hover {
     <nav>
         <a href="task2CF.html">Contact</a>
         <a href="task2TD.html">To Do</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="productList.html">ProductList</a>
     </nav>
 </header>
 
@@ -154,6 +156,8 @@ ul li button:hover {
 </main>
 
 <script>
+document.addEventListener("DOMContentLoaded", loadTasks);
+
 function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskValue = taskInput.value.trim();
@@ -163,24 +167,91 @@ function addTask() {
         return;
     }
 
+    const task = { 
+        id: Date.now(), 
+        text: taskValue, 
+        completed: false 
+    };
+    saveTask(task);
+    renderTask(task);
+
+    taskInput.value = "";
+}
+
+// Save task to localStorage
+function saveTask(task) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Load tasks from localStorage
+function loadTasks() {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(task => renderTask(task));
+}
+
+// Render a single task in the UI
+function renderTask(task) {
     const li = document.createElement("li");
+    li.setAttribute("data-id", task.id);
+
     const span = document.createElement("span");
-    span.textContent = taskValue;
+    span.textContent = task.text;
+    if (task.completed) {
+        span.style.textDecoration = "line-through";
+        span.style.color = "#777";
+    }
+
+    const completeBtn = document.createElement("button");
+    completeBtn.textContent = task.completed ? "Undo" : "Complete";
+    completeBtn.style.marginRight = "8px";
+    completeBtn.onclick = function() {
+        toggleComplete(task.id, li, span, completeBtn);
+    }
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
     deleteBtn.onclick = function() {
         const confirmDelete = confirm("Are you sure you want to delete this task?");
         if (confirmDelete) {
+            removeTask(task.id);
             li.remove();
         }
     }
 
     li.appendChild(span);
+    li.appendChild(completeBtn);
     li.appendChild(deleteBtn);
     document.getElementById("taskList").appendChild(li);
+}
 
-    taskInput.value = "";
+// Toggle completed state
+function toggleComplete(id, li, span, btn) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = tasks.map(task => {
+        if (task.id === id) {
+            task.completed = !task.completed;
+            if (task.completed) {
+                span.style.textDecoration = "line-through";
+                span.style.color = "#777";
+                btn.textContent = "Undo";
+            } else {
+                span.style.textDecoration = "none";
+                span.style.color = "#000";
+                btn.textContent = "Complete";
+            }
+        }
+        return task;
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Remove task from localStorage
+function removeTask(id) {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = tasks.filter(task => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 </script>
 
