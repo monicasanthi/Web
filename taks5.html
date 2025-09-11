@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects Hub</title>
+  <style>
+    :root {
+      --primary: #ff7e5f;
+      --secondary: #ff2f92;
+      --light: #fff;;
+      --dark: #333;
+      --font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--light);
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: var(--light);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      color: #f8d7e4;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      
+    }
+
+    .card {
+      background: var(--light);
+      color: var(--dark);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card-content h3 {
+      margin: 0.5rem 0;
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      margin-top: 1rem;
+      border-radius: 25px;
+      background: var(--secondary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚀 My Project Hub</h1>
+    <p>Navigate to all my works in one place</p>
+  </header>
+
+  <div class="container">
+    <!-- Portfolio -->
+    <div class="card">
+      <div class="card-content">
+        <h3>Portfolio</h3>
+        <p>Showcasing my skills, achievements & projects.</p>
+        <a href="portfolio.html" class="btn">View</a>
+      </div>
+    </div>
+
+    <!-- To-do App -->
+    <div class="card">
+      <div class="card-content">
+        <h3>To-do App</h3>
+        <p>Organize tasks efficiently with my interactive to-do app.</p>
+        <a href="task2TD.html" class="btn">Open</a>
+      </div>
+    </div>
+
+    <!-- Product List -->
+    <div class="card">
+      <div class="card-content">
+        <h3>Product List</h3>
+        <p>Browse a clean and responsive product listing demo.</p>
+        <a href="productList.html" class="btn">Explore</a>
+      </div>
+    </div>
+
+    <!-- Image Carousel -->
+    <div class="card">
+      <div class="card-content">
+        <h3>Image Carousel</h3>
+        <p>Beautiful sliding carousel with smooth transitions.</p>
+        <a href="imageCarousel.html" class="btn">See</a>
+      </div>
+    </div>
+
+    <!-- ShopSphere -->
+    <div class="card">
+      <div class="card-content">
+        <h3>ShopSphere</h3>
+        <p>Everything you need, in one click – my e-commerce project.</p>
+        <a href="index.html" class="btn">Visit</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 My Project Hub | Built with ❤ by Me</p>
+  </footer>
+</body>
+</html>
